@@ -166,14 +166,14 @@ How to start, rename and find chats in each app, and the cases where a handoff f
 
 ### claude.ai (web, desktop and mobile)
 
-1. Download [chat-handoff.zip](https://github.com/RosBradley/chat-handoff-for-claude/releases/latest/download/chat-handoff.zip) from the [latest release](https://github.com/RosBradley/chat-handoff-for-claude/releases/latest).
+1. Download [chat-handoff-claude.zip](https://github.com/RosBradley/chat-handoff-for-claude/releases/latest/download/chat-handoff-claude.zip) from the [latest release](https://github.com/RosBradley/chat-handoff-for-claude/releases/latest).
 2. Upload it and turn it on under **Customize > Skills**.
 
 To build the zip yourself instead (for a version not yet released), zip the skill folder itself, so the archive's top level is `chat-handoff/`:
 
 ```bash
 cd skills
-zip -r chat-handoff.zip chat-handoff/
+zip -r chat-handoff-claude.zip chat-handoff/
 ```
 
 ### Claude Code

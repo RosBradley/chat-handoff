@@ -1,4 +1,4 @@
-# Publishes a GitHub release with chat-handoff.zip, the file claude.ai users upload.
+# Publishes a GitHub release with chat-handoff-claude.zip, the file claude.ai users upload.
 # Runs when the version in .claude-plugin/plugin.json changes on main, and skips a
 # version that already has a release. To run it by hand: Actions tab, Release,
 # "Run workflow".
@@ -55,11 +55,11 @@ jobs:
 
       # claude.ai wants the skill's folder at the top of the zip; Copilot Cowork
       # wants SKILL.md itself there. Same files, two layouts.
-      - name: Build chat-handoff.zip and chat-handoff-cowork.zip
+      - name: Build chat-handoff-claude.zip and chat-handoff-microsoft-copilot.zip
         if: steps.check.outputs.skip != 'true'
         run: |
-          cd skills && zip -r -X ../chat-handoff.zip chat-handoff
-          cd chat-handoff && zip -r -X ../../chat-handoff-cowork.zip .
+          cd skills && zip -r -X ../chat-handoff-claude.zip chat-handoff
+          cd chat-handoff && zip -r -X ../../chat-handoff-microsoft-copilot.zip .
 
       - name: Publish the release
         if: steps.check.outputs.skip != 'true'
@@ -68,13 +68,13 @@ jobs:
           TAG: ${{ steps.version.outputs.tag }}
         run: |
           {
-            echo "**claude.ai:** download \`chat-handoff.zip\` below, then upload it and turn it on under **Customize > Skills**."
+            echo "**claude.ai:** download \`chat-handoff-claude.zip\` below, then upload it and turn it on under **Customize > Skills**."
             echo
             echo "**Claude Code:** install it as a plugin; see the [README](https://github.com/${GITHUB_REPOSITORY}#claude-code)."
             echo
-            echo "**Microsoft Copilot Cowork:** download \`chat-handoff-cowork.zip\` below and upload it under **Customize > Skills**, **Upload skill**; see the [setup guide](https://github.com/${GITHUB_REPOSITORY}/blob/main/docs/setup.md#other-apps)."
+            echo "**Microsoft Copilot Cowork:** download \`chat-handoff-microsoft-copilot.zip\` below and upload it under **Customize > Skills**, **Upload skill**; see the [setup guide](https://github.com/${GITHUB_REPOSITORY}/blob/main/docs/setup.md#other-apps)."
             echo
             echo "## What's new"
             awk -v h="## ${TAG#v}" 'index($0, h " ") == 1 || $0 == h {f=1; next} f && /^## / {exit} f' CHANGELOG.md
           } > notes.md
-          gh release create "$TAG" chat-handoff.zip chat-handoff-cowork.zip --target "$GITHUB_SHA" --title "Chat Handoff ${TAG#v}" --notes-file notes.md
+          gh release create "$TAG" chat-handoff-claude.zip chat-handoff-microsoft-copilot.zip --target "$GITHUB_SHA" --title "Chat Handoff ${TAG#v}" --notes-file notes.md
