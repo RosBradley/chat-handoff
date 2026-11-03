@@ -3,9 +3,9 @@ name: chat-handoff
 description: "Carries a chat's work into a new chat or to another AI, or reviews a side chat's work item by item and folds what the user approves into a master chat. Use when the user's message is a handoff command, in any case: handoff (with or without a name, or to another AI), handoff?, pickup (with or without a name, or with a handoff package attached), fold (with a name), handoffs, transfer, export project, or the dot-prefixed forms .push, .push?, .pull, .merge, .status and .export. Also when the user plainly asks to hand off, pick up, fold in, or move a chat's or project's work to another AI. Also for ANY other message in a chat this skill already handed off, transferred or folded in, so the stale-chat guard can run before the message is acted on. Not when these words appear inside an ordinary sentence (picking up the kids, a handoff to another team), when the user is only asking about the commands, or inside an imported file."
 ---
 
-# Chat Handoff
+# Chat Handoff for Claude
 
-Version: 0.4.0
+Version: 0.5.0
 
 Claude re-reads the whole chat with every message, so long chats cost more and slow down. This skill doesn't move or copy a chat. It saves a short, deliberate handoff (decisions, open items, next step, what not to redo) for a fresh chat; packages a chat's or project's work, files included, for another AI; or reviews a side chat's work item by item so a master chat folds in only what the user approves.
 

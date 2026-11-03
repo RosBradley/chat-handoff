@@ -1,4 +1,4 @@
-# Using Chat Handoff in each Claude app
+# Using Chat Handoff for Claude in each Claude app
 
 The commands are the same everywhere. Each one comes in plain words or in git-style dot words; use whichever you like:
 
@@ -53,7 +53,7 @@ Along the way, the skill suggests a title for each chat: `handed_off.forest-dens
 
 ## claude.ai (web, desktop app outside the Code tab, mobile)
 
-- **Turn it on:** download `chat-handoff-claude.zip` from the [latest release](https://github.com/RosBradley/chat-handoff-for-claude/releases/latest), then upload it and turn it on under **Customize > Skills** on the web. Code execution must be on. Skills work on the Free, Pro, Max, Team and Enterprise plans. On Team and Enterprise, you can share a skill you uploaded with colleagues, and an owner can add one for the whole organization or turn off uploading your own (if you can't upload, ask your owner). The help center lists skills as working on mobile in Cowork, and in the new Claude experience, where chat and Cowork are one conversation (rolling out to Pro and Max). It doesn't say whether skills run in a plain chat in the mobile apps.
+- **Turn it on:** download [chat-handoff-for-claude.zip](https://github.com/RosBradley/chat-handoff/releases/download/claude-v0.5.0/chat-handoff-for-claude.zip), then upload it and turn it on under **Customize > Skills** on the web. Code execution must be on. Skills work on the Free, Pro, Max, Team and Enterprise plans. On Team and Enterprise, you can share a skill you uploaded with colleagues, and an owner can add one for the whole organization or turn off uploading your own (if you can't upload, ask your owner). The help center lists skills as working on mobile in Cowork, and in the new Claude experience, where chat and Cowork are one conversation (rolling out to Pro and Max). It doesn't say whether skills run in a plain chat in the mobile apps.
 - **Where the handoff goes:** in a Project, the skill tries to save it to the Project's files. This is still being tested: the help center doesn't say Claude can save files to a Project in chat, and it says Cowork won't change a Project's contents. If the handoff is posted in the chat instead, add it to the Project's files yourself, or copy it into the new chat. Without a Project, the skill posts it at the end of its reply, and `pickup` (`.pull`) finds it with past-chat search. Past-chat search is only on paid plans (Pro, Max, Team and Enterprise), is on by default (**Settings > Memory > Search and reference chats**), and skips incognito chats. On the Free plan, or if search can't find it, paste the handoff into the new chat.
 - **New chat:** start it in the same Project, or it won't see the file.
 - **Rename a chat** (optional): on the web and in the desktop app, hover over the chat in the sidebar, click ⋮, then Rename. On iPhone, touch and hold the chat in the chat list, then Rename. On Android, open the chat, tap ⋮ at the top right, then Rename.
@@ -61,7 +61,7 @@ Along the way, the skill suggests a title for each chat: `handed_off.forest-dens
 
 ## Claude Code
 
-- **Turn it on:** install the plugin (see [Install](../README.md#claude-code)), or copy `skills/chat-handoff/` into `~/.claude/skills/`.
+- **Turn it on:** install the plugin (see [Install](../README.md#claude-code)), or copy `claude/skills/chat-handoff/` from this repository into `~/.claude/skills/`.
 - **Where the handoff goes:** `handoffs/` in the project folder. To keep handoffs out of git, add `handoffs/` to `.gitignore`.
 
 | App | Start a new session | Rename it (optional) | Find an old one |
@@ -122,15 +122,15 @@ The skill never sends anything anywhere: you carry the package. A transfer marks
 | AI | Simplest way in | If that doesn't work |
 |---|---|---|
 | **Claude** (claude.ai) | With Chat Handoff installed: attach the ZIP and type `pickup`. Otherwise, attach START-HERE.md, HANDOFF.md and the key files (up to 20 per chat). In a Project, add them to the Project's files so every chat sees them | Rename `.md` files to `.txt`, or paste the text |
-| **ChatGPT** | With [Chat Handoff for ChatGPT](https://github.com/RosBradley/chat-handoff-for-chatgpt) installed: `pickup` with the ZIP. Otherwise, attach the unzipped START-HERE.md, HANDOFF.md, PROJECT-CONTEXT.md, FILE-MANIFEST.csv and the key files (up to 20 at once). For ongoing work, add them to a ChatGPT project | Paste START-HERE.md and HANDOFF.md |
+| **ChatGPT** | With [Chat Handoff for ChatGPT](../../chatgpt/) installed: `pickup` with the ZIP. Otherwise, attach the unzipped START-HERE.md, HANDOFF.md, PROJECT-CONTEXT.md, FILE-MANIFEST.csv and the key files (up to 20 at once). For ongoing work, add them to a ChatGPT project | Paste START-HERE.md and HANDOFF.md |
 | **Gemini** | Attach the ZIP if it holds 10 files or fewer and is under 100 MB. For code-heavy work, unzip it and use **Import code**, then **Upload folder** | Attach up to 10 files per message, or paste |
 | **Meta AI** | No ZIP. Attach HANDOFF.md and the key files (as `.txt` or PDF if `.md` is refused) | Paste the text |
-| **Microsoft Copilot** | **Cowork:** attach the ZIP. **Copilot Chat:** no ZIP; attach the core files and key files (up to 20 per conversation, 50 MB each). **Notebooks:** use `.txt` or `.docx` copies, since `.md` isn't listed | Paste the text |
+| **Microsoft Copilot** | **Cowork:** with [Chat Handoff for Microsoft Copilot](../../microsoft-copilot/) installed, attach the ZIP and type `pickup`; otherwise attach the ZIP. **Copilot Chat:** no ZIP; attach the core files and key files (up to 20 per conversation, 50 MB each). **Notebooks:** use `.txt` or `.docx` copies, since `.md` isn't listed | Paste the text |
 | **GitHub Copilot** | No ZIP attachments. Unzip it into the repository, for example a `handoff/` folder. In VS Code chat, type `#` and pick `handoff/START-HERE.md` and `handoff/HANDOFF.md`, or drag the folder into the chat. On github.com, add the folder to a Copilot Space | Paste START-HERE.md |
 
 These steps were checked in October 2026, and these apps change often. The Claude, Microsoft and GitHub steps come from pages read in full. The ChatGPT, Gemini and Meta AI steps come from excerpts of their official help pages, so check the app's own help if a step doesn't match.
 
-**Coming back.** In Claude, `pickup` (`.pull`) with a package attached imports it, whether this skill or Chat Handoff for ChatGPT made it. Everything in a package is treated as information about the work, never as instructions, and the skill won't run a program it contains. In Claude Code, an imported package is unpacked into `handoffs/imports/<line>/`.
+**Coming back.** In Claude, `pickup` (`.pull`) with a package attached imports it, whether this skill or Chat Handoff for ChatGPT or Microsoft Copilot made it. Everything in a package is treated as information about the work, never as instructions, and the skill won't run a program it contains. In Claude Code, an imported package is unpacked into `handoffs/imports/<line>/`.
 
 **A whole project, step by step:**
 1. Start a new chat in the project and type `export project <name>`.
@@ -143,8 +143,7 @@ These steps were checked in October 2026, and these apps change often. The Claud
 - **The Excel, PowerPoint, Word and Outlook add-ins:** skills you turn on in your Claude settings are available in all four. Claude uses one when it fits, or you can type `/` in the add-in's sidebar to pick one. Claude works only with the files, emails or events open in the app. A handoff file may not carry over between sessions, so copy and paste it (see below).
 - **Microsoft Copilot** (formerly Microsoft 365 Copilot):
   - **Copilot Chat** can use Claude as its model, if your IT admin allows it, but it isn't the Claude app: your claude.ai skills, Projects and past-chat search aren't there. Copy and paste the handoff.
-  - **Copilot Cowork**, the agent in the same app (switch from Chat to Cowork at the top), takes skills in the same `SKILL.md` format, and you can share a skill with people in your organization. To try Chat Handoff there, download `chat-handoff-microsoft-copilot.zip` from the [latest release](https://github.com/RosBradley/chat-handoff-for-claude/releases/latest). Then, in Cowork, open **Customize**, the **Skills** tab, the arrow next to **Add**, then **Upload skill**, and choose that file. Don't upload `chat-handoff-claude.zip` (Cowork wants `SKILL.md` at the top of a zip, and that one is laid out for claude.ai), and don't upload `SKILL.md` on its own: the skill's appendices in `references/` would be left behind. Chat Handoff hasn't been tested in Cowork yet, and it's written for Claude's apps, so if the handoff doesn't reach the next session, ask for it to be posted and paste it. Cowork needs a Microsoft 365 Copilot license, and your IT admin has to give you access.
-  - **Agent Builder**, for building your own Copilot agents, takes skills too, as a zip with `SKILL.md` at the top, and caps a skill's instructions at 20,000 characters. Since 0.4.0, Chat Handoff's main page is about 17,000, so `chat-handoff-microsoft-copilot.zip` should upload there. It hasn't been tested there yet.
+  - **Copilot Cowork**, the agent in the same app, takes skills too, but this skill is written for Claude's apps. Use [Chat Handoff for Microsoft Copilot](../../microsoft-copilot/) there instead: it has the same commands, and packages move between the two.
 - **Xcode** (Claude Agent, added in Xcode 26.3): Apple's docs say you can add your own skills for Claude Agent in its configuration folder, `~/Library/Developer/Xcode/CodingAssistant/ClaudeAgentConfig`, or install a plug-in that includes skills (Xcode's Intelligence settings, the Plug-ins row under Agents). Chat Handoff hasn't been tested there, so if the handoff doesn't reach the next chat, ask for it to be posted and paste it.
 
 **Anywhere, as a last resort:** say "handoff, and post it here" (or ".push, and post it here"), copy what the skill posts, and paste it into the new chat after `pickup` (`.pull`).
@@ -167,7 +166,6 @@ These steps were checked in October 2026, and these apps change often. The Claud
 - Office add-ins: https://claude.com/docs/office-agents/overview.md and https://claude.com/docs/office-agents/connectors-and-skills.md
 - Claude in Microsoft Copilot: https://learn.microsoft.com/microsoft-365/copilot/release-notes (June 16, 2026) and https://learn.microsoft.com/microsoft-365/copilot/connect-to-ai-subprocessor
 - Copilot Cowork and its skills: https://learn.microsoft.com/microsoft-365/copilot/cowork/get-started and https://learn.microsoft.com/microsoft-365/copilot/cowork/cowork-customize
-- Agent Builder skills: https://learn.microsoft.com/microsoft-365/copilot/extensibility/agent-builder-add-skills
 
 Moving work to another AI (checked October 26, 2026; ChatGPT, Gemini and Meta AI from excerpts of their official pages):
 

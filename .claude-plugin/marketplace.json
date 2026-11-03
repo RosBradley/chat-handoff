@@ -1,14 +1,14 @@
 {
-  "name": "chat-handoff-for-claude",
-  "description": "Chat Handoff skill for Claude: carry work between chats.",
+  "name": "chat-handoff",
+  "description": "Chat Handoff: carry work between chats, and to another AI.",
   "owner": {
     "name": "RosBradley"
   },
   "plugins": [
     {
-      "name": "chat-handoff",
-      "source": "./",
-      "description": "Carry a chat's work into a new chat or to another AI, or review a side chat's work item by item and fold what you approve into a master chat."
+      "name": "chat-handoff-for-claude",
+      "source": "./claude",
+      "description": "Chat Handoff for Claude: carry a chat's work into a new chat or to another AI, or review a side chat's work item by item and fold what you approve into a master chat."
     }
   ]
 }

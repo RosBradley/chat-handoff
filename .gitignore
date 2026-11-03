@@ -1,4 +1,4 @@
-handoffs/
-evals/results/
+/handoffs/
+claude/evals/results/
 # Transcripts the eval runner saves next to a resumed history.jsonl
-evals/*/*-*-*-*-*.jsonl
+claude/evals/*/*-*-*-*-*.jsonl

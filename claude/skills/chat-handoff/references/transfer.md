@@ -2,7 +2,7 @@
 
 Read for `transfer` (`.export`), a handoff to another AI (`handoff <name> to <AI>`, `.push <name> to <AI>`), `export project`, and a `pickup` or `fold` that brings in a package or a handoff pasted from another AI.
 
-The package format, `chat-handoff/1`, is shared with Chat Handoff for ChatGPT, so either one can pick up a package the other made. The receiving AI needs neither: START-HERE.md tells it what to do.
+The package format, `chat-handoff/1`, is shared with Chat Handoff for ChatGPT and Chat Handoff for Microsoft Copilot, so each can pick up a package another made. The receiving AI needs neither: START-HERE.md tells it what to do.
 
 ## Which kind
 
@@ -86,7 +86,7 @@ Give the steps for the destination named, from this table (checked October 2026;
 | ChatGPT | With Chat Handoff for ChatGPT installed: `pickup` with the ZIP. Otherwise, attach the unzipped core files and key files (up to 20 at once), then paste the prompt; for ongoing work, add them to a ChatGPT project | Paste START-HERE.md and HANDOFF.md |
 | Gemini | Attach the ZIP if it holds 10 files or fewer and is under 100 MB, then paste the prompt. For code-heavy work, unzip it and use Import code, Upload folder | Attach up to 10 files per message, or paste |
 | Meta AI | No ZIP: attach HANDOFF.md and the key files (as `.txt` or PDF if `.md` is refused), then paste the prompt | Paste the text |
-| Microsoft Copilot | In Cowork: attach the ZIP and paste the prompt. In Copilot Chat, no ZIP: attach the core files and key files (up to 20, 50 MB each), then paste the prompt. For a Notebook, use `.txt` or `.docx` copies | Paste the text |
+| Microsoft Copilot | In Cowork: with Chat Handoff for Microsoft Copilot installed, attach the ZIP and type `pickup`; otherwise attach the ZIP and paste the prompt. In Copilot Chat, no ZIP: attach the core files and key files (up to 20, 50 MB each), then paste the prompt. For a Notebook, use `.txt` or `.docx` copies | Paste the text |
 | GitHub Copilot | No ZIP attachments: unzip it into the repository (for example a `handoff/` folder), then in VS Code chat type `#` and pick `handoff/START-HERE.md` and `handoff/HANDOFF.md`, or drag the folder in. On github.com, add the folder to a Copilot Space | Paste START-HERE.md |
 
 If that AI has projects or another place to keep files, suggest adding the package's files there, so later chats see them too.

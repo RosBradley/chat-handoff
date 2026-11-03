@@ -3,9 +3,9 @@
 
 Each case that needs a chat history gets evals/<case>/history.jsonl, built from
 the conversations below: text turns only, with no tool calls, paths or account
-details, so the transcripts are safe to publish. Run from the repo root:
+details, so the transcripts are safe to publish. Run from the repository root:
 
-    python3 evals/make_histories.py
+    python3 claude/evals/make_histories.py
 """
 import json
 import pathlib
