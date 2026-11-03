@@ -169,11 +169,14 @@ How to start, rename and find chats in each app, and the cases where a handoff f
 1. Download [chat-handoff-for-claude.zip](https://github.com/RosBradley/chat-handoff/releases/download/v2.0.0/chat-handoff-for-claude.zip) (version 2.0.0).
 2. Upload it and turn it on under **Customize > Skills**. If you have an earlier version, uploading this one replaces it, since the ID is the same.
 
-To build the zip yourself instead (for a version not yet released), zip the skill folder itself, so the archive's top level is `chat-handoff/`:
+The zip unzips into a folder named `chat-handoff-for-claude`; the skill inside is still called `chat-handoff`.
+
+To build the zip yourself instead (for a version not yet released), copy the skill folder under that name and zip the folder itself, so the archive's top level is `chat-handoff-for-claude/`:
 
 ```bash
-cd skills
-zip -r chat-handoff-for-claude.zip chat-handoff/
+cp -R claude/skills/chat-handoff /tmp/chat-handoff-for-claude
+cd /tmp
+zip -r chat-handoff-for-claude.zip chat-handoff-for-claude/
 ```
 
 ### Claude Code

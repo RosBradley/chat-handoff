@@ -106,11 +106,14 @@ jobs:
           fi
 
       # claude.ai wants the skill's folder at the top of the zip; Cowork and Agent Builder
-      # want SKILL.md itself there.
+      # want SKILL.md itself there. The Claude folder is named chat-handoff-for-claude, so the
+      # zip unzips into a folder named for its app; claude.ai accepts it (tested November 3,
+      # 2026), though the skill's ID inside stays chat-handoff.
       - name: Build the Claude and Copilot zips
         if: steps.check.outputs.skip != 'true'
         run: |
-          (cd claude/skills && zip -r -X "$GITHUB_WORKSPACE/chat-handoff-for-claude.zip" chat-handoff)
+          mkdir -p build && cp -R claude/skills/chat-handoff build/chat-handoff-for-claude
+          (cd build && zip -r -X "$GITHUB_WORKSPACE/chat-handoff-for-claude.zip" chat-handoff-for-claude)
           (cd "$COPILOT_DIR" && zip -r -X "$GITHUB_WORKSPACE/chat-handoff-for-microsoft-copilot.zip" .)
           cp chatgpt/dist/chat-handoff-for-chatgpt.zip .
 

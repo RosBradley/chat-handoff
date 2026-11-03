@@ -4,7 +4,7 @@
 
 - Version numbers jump from 0.4.0 to 2.0.0: the Claude, ChatGPT and Microsoft Copilot skills now share one version number and one release, with a download for each.
 - Renamed Chat Handoff for Claude. It now lives in the `claude/` folder of [RosBradley/chat-handoff](https://github.com/RosBradley/chat-handoff), alongside [Chat Handoff for ChatGPT](../chatgpt/) and the new [Chat Handoff for Microsoft Copilot](../microsoft-copilot/).
-- The claude.ai download is now `chat-handoff-for-claude.zip`. The skill's ID stays `chat-handoff`, because claude.ai doesn't allow "claude" in an ID, so uploading it replaces an earlier version.
+- The claude.ai download is now `chat-handoff-for-claude.zip`, and it unzips into a folder of the same name. The skill's ID stays `chat-handoff`, because claude.ai doesn't allow "claude" in an ID, so uploading it replaces an earlier version.
 - The Claude Code plugin is now `chat-handoff-for-claude`, from the marketplace `chat-handoff`: `/plugin install chat-handoff-for-claude@chat-handoff`, run directly as `/chat-handoff-for-claude:chat-handoff`. Remove the old marketplace first with `/plugin marketplace remove chat-handoff-for-claude`.
 - No more `chat-handoff-microsoft-copilot.zip`: Copilot Cowork gets its own skill, Chat Handoff for Microsoft Copilot, written for Copilot's apps instead of Claude's. The setup guide points there.
 - The tests run with `claude plugin eval claude` from the repository folder.
