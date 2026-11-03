@@ -5,7 +5,7 @@ description: "Carries a chat's work into a new chat or to another AI, or reviews
 
 # Chat Handoff for Claude
 
-Version: 0.5.0
+Version: 2.0.0
 
 Claude re-reads the whole chat with every message, so long chats cost more and slow down. This skill doesn't move or copy a chat. It saves a short, deliberate handoff (decisions, open items, next step, what not to redo) for a fresh chat; packages a chat's or project's work, files included, for another AI; or reviews a side chat's work item by item so a master chat folds in only what the user approves.
 

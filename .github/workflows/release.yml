@@ -1,0 +1,135 @@
+# Publishes one release, "Chat Handoff <version>", tagged v<version>, with one download per app:
+# chat-handoff-for-claude.zip, chat-handoff-for-chatgpt.zip and
+# chat-handoff-for-microsoft-copilot.zip. The three skills share one version number. Runs when
+# a version changes on main, stops if the versions disagree, and skips a version that already
+# has a release. To run it by hand: Actions tab, Release, "Run workflow".
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - claude/.claude-plugin/plugin.json
+      - chatgpt/plugin.json
+      - microsoft-copilot/skills/chat-handoff-for-microsoft-copilot/SKILL.md
+      - .github/workflows/release.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  CLAUDE_SKILL: claude/skills/chat-handoff/SKILL.md
+  COPILOT_DIR: microsoft-copilot/skills/chat-handoff-for-microsoft-copilot
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Check all three skills have the same version
+        id: version
+        run: |
+          claude="$(jq -r .version claude/.claude-plugin/plugin.json)"
+          chatgpt="$(jq -r .version chatgpt/plugin.json)"
+          copilot="$(sed -n 's/^Version: //p' "$COPILOT_DIR/SKILL.md" | head -n 1)"
+          echo "Claude $claude, ChatGPT $chatgpt, Microsoft Copilot $copilot"
+          [ "$claude" = "$chatgpt" ] && [ "$claude" = "$copilot" ] || { echo "::error::The three versions must match."; exit 1; }
+          grep -qx "Version: $claude" "$CLAUDE_SKILL" || { echo "::error file=$CLAUDE_SKILL::The Version line doesn't say $claude."; exit 1; }
+          echo "version=$claude" >> "$GITHUB_OUTPUT"
+
+      # claude.ai rejects an upload whose name or description breaks these rules.
+      - name: Check the Claude skill against claude.ai's upload rules
+        run: |
+          name="$(sed -n 's/^name: *//p' "$CLAUDE_SKILL" | head -n 1)"
+          description="$(sed -n 's/^description: *"\(.*\)"$/\1/p' "$CLAUDE_SKILL" | head -n 1)"
+          fail() { echo "::error file=$CLAUDE_SKILL::$1"; exit 1; }
+          [ -n "$description" ] || fail "No quoted description found in the frontmatter."
+          case "$description" in *'<'* | *'>'*) fail "The description has < or >, which claude.ai rejects." ;; esac
+          [ "${#description}" -le 1024 ] || fail "The description is ${#description} characters; claude.ai allows 1024."
+          echo "$name" | grep -Eq '^[a-z0-9-]{1,64}$' || fail "The name must be 1 to 64 lowercase letters, digits or hyphens."
+          case "$name" in *anthropic* | *claude*) fail "The name can't contain anthropic or claude." ;; esac
+          echo "Claude skill passes: name $name, description ${#description} characters."
+
+      # Cowork wants a kebab-case name that matches the folder and a description of at most
+      # 1,024 characters; Agent Builder caps a skill's instructions at 20,000 characters.
+      - name: Check the Copilot skill against Copilot's skill rules
+        run: |
+          python3 - <<'EOF'
+          import os, re, sys
+          folder = os.environ["COPILOT_DIR"]
+          path = f"{folder}/SKILL.md"
+          text = open(path, encoding="utf-8").read()
+          def fail(msg):
+              print(f"::error file={path}::{msg}"); sys.exit(1)
+          front = re.match(r"---\n(.*?)\n---\n", text, re.S) or fail("No frontmatter.")
+          name = re.search(r"^name: *(.+)$", front.group(1), re.M)
+          desc = re.search(r'^description: *"(.*)"$', front.group(1), re.M)
+          name = name.group(1).strip() if name else fail("No name.")
+          desc = desc.group(1) if desc else fail("No quoted description.")
+          re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", name) and len(name) <= 64 or fail("The name must be kebab-case, 1 to 64 characters.")
+          name == os.path.basename(folder) or fail("The name must match the folder name.")
+          0 < len(desc) <= 1024 or fail(f"The description is {len(desc)} characters; Copilot allows 1024.")
+          len(text) < 20000 or fail(f"SKILL.md is {len(text)} characters; Agent Builder allows under 20,000.")
+          print(f"Copilot skill passes: name {name}, description {len(desc)} characters, {len(text)} characters in all.")
+          EOF
+
+      - name: Validate, test and build the ChatGPT plugin
+        working-directory: chatgpt
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python scripts/validate_repo.py
+          python -m unittest discover -s tests -v
+          python scripts/build.py
+
+      # The download links name the version, so a version bump must update them all.
+      - name: Check the download links name this version
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          stale="$(grep -rnoE 'releases/(download|tag)/[a-z-]*v[0-9]+\.[0-9]+\.[0-9]+' README.md claude chatgpt microsoft-copilot --include='*.md' --exclude=CHANGELOG.md | grep -vE "releases/(download|tag)/v$VERSION\$" || true)"
+          [ -z "$stale" ] || { echo "::error::These links don't name v$VERSION:"; echo "$stale"; exit 1; }
+
+      - name: Skip a version that's already released
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          if gh release view "v$VERSION" >/dev/null 2>&1; then
+            echo "v$VERSION is already released."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # claude.ai wants the skill's folder at the top of the zip; Cowork and Agent Builder
+      # want SKILL.md itself there.
+      - name: Build the Claude and Copilot zips
+        if: steps.check.outputs.skip != 'true'
+        run: |
+          (cd claude/skills && zip -r -X "$GITHUB_WORKSPACE/chat-handoff-for-claude.zip" chat-handoff)
+          (cd "$COPILOT_DIR" && zip -r -X "$GITHUB_WORKSPACE/chat-handoff-for-microsoft-copilot.zip" .)
+          cp chatgpt/dist/chat-handoff-for-chatgpt.zip .
+
+      - name: Publish the release
+        if: steps.check.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          base="https://github.com/${GITHUB_REPOSITORY}/tree/main"
+          cat > notes.md <<EOF
+          Download only the file for your app:
+
+          | App | Download | How to install |
+          |---|---|---|
+          | Claude (claude.ai) | \`chat-handoff-for-claude.zip\` | Upload it under **Customize > Skills**. Claude Code: the plugin, see [claude/]($base/claude#claude-code) |
+          | ChatGPT | \`chat-handoff-for-chatgpt.zip\` | Install it with Plugin Creator, see [chatgpt/]($base/chatgpt#install-in-chatgpt) |
+          | Microsoft Copilot | \`chat-handoff-for-microsoft-copilot.zip\` | Upload it in Cowork under **Customize > Skills**, see [microsoft-copilot/]($base/microsoft-copilot#install) |
+
+          What's new: the changelogs for [Claude]($base/claude/CHANGELOG.md), [ChatGPT]($base/chatgpt/CHANGELOG.md) and [Microsoft Copilot]($base/microsoft-copilot/CHANGELOG.md).
+          EOF
+          gh release create "v$VERSION" chat-handoff-for-claude.zip chat-handoff-for-chatgpt.zip chat-handoff-for-microsoft-copilot.zip --target "$GITHUB_SHA" --title "Chat Handoff $VERSION" --notes-file notes.md

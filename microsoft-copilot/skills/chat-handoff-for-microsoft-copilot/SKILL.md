@@ -5,7 +5,7 @@ description: "Carries a Copilot chat's work into a new chat or to another AI, or
 
 # Chat Handoff for Microsoft Copilot
 
-Version: 0.1.0
+Version: 2.0.0
 
 A new Copilot chat starts without the earlier chat's messages, and a long chat gets slower and harder to steer. This skill doesn't move or copy a chat. It saves a short, deliberate handoff (decisions, open items, next step, what not to redo) for a fresh chat; packages a chat's or project's work, files included, for another AI; or reviews a side chat's work item by item so a master chat folds in only what the user approves.
 

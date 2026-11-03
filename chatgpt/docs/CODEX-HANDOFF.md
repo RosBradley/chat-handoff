@@ -14,9 +14,8 @@ versions lived in RosBradley/chat-handoff-for-chatgpt, now archived.
 
 One maintained skill: skills/chat-handoff-for-chatgpt. Both plugin manifests
 package it. The hosted CI and release workflows are in the repository's
-.github/workflows/ (chatgpt-ci.yml and release-chatgpt.yml). Release downloads
-are the plugin ZIP and its checksum file; future builds and release workflows
-must keep that two-file contract.
+.github/workflows/ (chatgpt-ci.yml and release.yml). One release per version
+carries all three skills' downloads; for ChatGPT, only the plugin ZIP.
 
 The agreed public description is: A ChatGPT plugin for moving chat and project
 work to new conversations or other AI tools, preserving context, decisions,

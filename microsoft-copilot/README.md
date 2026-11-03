@@ -2,7 +2,7 @@
 
 Chat Handoff for Microsoft Copilot is a skill for Copilot Cowork that lets a new chat pick up where a long one left off, and carries a chat's or project's work, files included, to another AI. Its ID is `chat-handoff-for-microsoft-copilot`.
 
-**Status:** v0.1.0, not yet tested in Copilot. It's adapted from Chat Handoff for Claude, which is in testing, and rewritten for how Cowork saves and finds files. If a step doesn't work, say "handoff, and post it here" (or ".push, and post it here") and paste the result into the new chat.
+**Status:** v2.0.0, not yet tested in Copilot. (All three Chat Handoff skills share one version number, so the first Copilot version is 2.0.0.) It's adapted from Chat Handoff for Claude, which is in testing, and rewritten for how Cowork saves and finds files. If a step doesn't work, say "handoff, and post it here" (or ".push, and post it here") and paste the result into the new chat.
 
 ## Why
 
@@ -12,7 +12,7 @@ Cowork keeps no memory between conversations, and a long chat gets slower and ha
 
 You need Microsoft Copilot with Copilot Cowork, which takes a Microsoft 365 Copilot license and access from your IT admin.
 
-1. Download [chat-handoff-for-microsoft-copilot.zip](https://github.com/RosBradley/chat-handoff/releases/download/microsoft-copilot-v0.1.0/chat-handoff-for-microsoft-copilot.zip) (version 0.1.0). Keep it zipped: `SKILL.md` is at the top, with its appendices in `references/` and `assets/`.
+1. Download [chat-handoff-for-microsoft-copilot.zip](https://github.com/RosBradley/chat-handoff/releases/download/v2.0.0/chat-handoff-for-microsoft-copilot.zip) (version 2.0.0). Keep it zipped: `SKILL.md` is at the top, with its appendices in `references/` and `assets/`.
 2. In Cowork, open **Customize**, the **Skills** tab, the arrow next to **Add**, then **Upload skill**, and choose the zip. Don't upload `SKILL.md` on its own, or the appendices are left behind.
 3. Start a new conversation: Cowork finds skills when a conversation starts.
 

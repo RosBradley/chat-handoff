@@ -10,7 +10,7 @@ Plugin Creator must be available in your ChatGPT account or workspace, with
 permission to create and use plugins. The conversation can be in regular Chat
 or Work where those features are enabled.
 
-1. Open [GitHub Releases](https://github.com/RosBradley/chat-handoff/releases/tag/chatgpt-v2.0.0)
+1. Open [GitHub Releases](https://github.com/RosBradley/chat-handoff/releases/tag/v2.0.0)
    and choose **chat-handoff-for-chatgpt.zip** under the release's assets.
    If no release asset is available yet, use the ZIP supplied by the maintainer.
    GitHub's automatic **Source code (zip)** contains the repository files.
@@ -80,7 +80,6 @@ or needs to provide copyable handoff text.
 | File | Intended use |
 | --- | --- |
 | chat-handoff-for-chatgpt.zip | ChatGPT Plugin Creator installation above. |
-| SHA256SUMS.txt | Checksum for the plugin ZIP. |
 | GitHub Source code (zip / tar.gz) | Repository files for development or the local Codex installer. |
 
 The plugin package already contains the skill, references and templates.

@@ -27,7 +27,7 @@ Chains work too: research chats feed a report chat, and the report feeds a fresh
 
 Sources (checked October 22, 2026): Anthropic's help center, [What is the Pro plan?](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan) ("The number of messages you can send will vary based on message length, including the length of files you attach, the length of your current conversation, and the model or feature you use"), [Models, usage, and limits in Claude Code](https://support.claude.com/en/articles/14552983-models-usage-and-limits-in-claude-code) ("Every previous message is resent on every turn"), [How do usage and length limits work?](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work) and [How large is the context window on paid Claude plans?](https://support.claude.com/en/articles/8606394-how-large-is-the-context-window-on-paid-claude-plans) ("Claude summarizes earlier messages to make room for new content"); the Claude API docs, [Using the Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) ("The Messages API is stateless") and [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching).
 
-**Status:** v0.5.0, in testing.
+**Status:** v2.0.0, in testing.
 
 ## Commands
 
@@ -166,7 +166,7 @@ How to start, rename and find chats in each app, and the cases where a handoff f
 
 ### claude.ai (web, desktop and mobile)
 
-1. Download [chat-handoff-for-claude.zip](https://github.com/RosBradley/chat-handoff/releases/download/claude-v0.5.0/chat-handoff-for-claude.zip) (version 0.5.0).
+1. Download [chat-handoff-for-claude.zip](https://github.com/RosBradley/chat-handoff/releases/download/v2.0.0/chat-handoff-for-claude.zip) (version 2.0.0).
 2. Upload it and turn it on under **Customize > Skills**. If you have an earlier version, uploading this one replaces it, since the ID is the same.
 
 To build the zip yourself instead (for a version not yet released), zip the skill folder itself, so the archive's top level is `chat-handoff/`:
@@ -193,7 +193,7 @@ On Claude Code older than 2.1.275, use two steps instead:
 
 Then type `handoff` (or `.push`), or run it directly with `/chat-handoff-for-claude:chat-handoff`.
 
-If you installed it before 0.5.0, the marketplace was called `chat-handoff-for-claude`: run `/plugin marketplace remove chat-handoff-for-claude` first, then install as above.
+If you installed it before 2.0.0, the marketplace was called `chat-handoff-for-claude`: run `/plugin marketplace remove chat-handoff-for-claude` first, then install as above.
 
 To install without the plugin system, copy `claude/skills/chat-handoff/` from this repository to `~/.claude/skills/chat-handoff/` (all your projects) or `.claude/skills/chat-handoff/` (one repository).
 

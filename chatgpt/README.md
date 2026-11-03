@@ -38,7 +38,7 @@ or workspace. It works through a ChatGPT conversation where plugin creation
 is enabled; it does not require switching to Codex.
 
 1. Download the plugin ZIP from the project's
-   [GitHub Releases](https://github.com/RosBradley/chat-handoff/releases/tag/chatgpt-v2.0.0),
+   [GitHub Releases](https://github.com/RosBradley/chat-handoff/releases/tag/v2.0.0),
    or use the maintainer-supplied ZIP if no release asset is available. Keep it zipped.
 2. Start a ChatGPT chat, type `@`, and select **Plugin Creator**.
 3. Attach the ZIP and send:

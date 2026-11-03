@@ -8,10 +8,12 @@
   "Upgrading from 1.x").
 - Moved into the `chatgpt/` folder of
   [RosBradley/chat-handoff](https://github.com/RosBradley/chat-handoff), which
-  also holds the Claude and Microsoft Copilot versions. Releases are tagged
-  `chatgpt-v<version>` there; the old repository is archived.
-- A release is published when the version in plugin.json changes on main,
-  instead of on a pushed tag.
+  also holds the Claude and Microsoft Copilot versions. The three share one
+  version number and one release, tagged `v<version>`, with a download for
+  each; the old repository is archived.
+- A release is published when the version changes on main, instead of on a
+  pushed tag. It no longer includes SHA256SUMS.txt: the release page shows each
+  download's SHA-256.
 - Removed NOTICE.md and the migration notes: the source they described is now
   in the same repository. The skill and docs no longer mention another app
   except where the work moves to one.
