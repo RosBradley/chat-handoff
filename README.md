@@ -12,6 +12,8 @@ There's one version for each app. They share the same commands and the same pack
 
 Each folder has its own README with the commands, setup steps and limits for that app, and its own changelog.
 
+**About Microsoft Copilot:** Chat Handoff for Microsoft Copilot is new and hasn't been tried in Copilot yet. It's adapted from the Claude version and rewritten for how Cowork saves and finds files. If a step doesn't work, say "handoff, and post it here" (or ".push, and post it here") and paste the result into the new chat. Reports of what works and what doesn't are welcome as [issues](https://github.com/RosBradley/chat-handoff/issues).
+
 **Claude Code plugin:**
 
 ```
