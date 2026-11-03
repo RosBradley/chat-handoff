@@ -11,7 +11,7 @@
 
 ## 0.4.0 (in testing)
 
-Move work to another AI, with the same commands and the same package format as [Chat Handoff for ChatGPT](https://github.com/RosBradley/chat-handoff-for-chatgpt), so work moves between the two.
+Move work to another AI, with the same commands and the same package format as [Chat Handoff for ChatGPT](../chatgpt/), so work moves between the two.
 
 - New commands:
   - `transfer <name> to <AI>` (`.export <name> to <AI>`), and `handoff <name> to <AI>` (`.push <name> to <AI>`), which does the same, package a chat's work in a ZIP for another AI. The package holds START-HERE.md with a prompt to paste, HANDOFF.md, PROJECT-CONTEXT.md for bigger projects, FILE-MANIFEST.csv with a checksum for every file, and the files themselves. The name and the AI are optional. The skill checks the package before handing it over, labels it **Partial transfer** if something needed is missing, leaves out secrets, and never sends it anywhere. Most AIs don't take a ZIP in a chat, so the files also come unzipped. The reply says how to bring them into the AI named: Claude, ChatGPT, Gemini, Meta AI, Microsoft Copilot or GitHub Copilot. The setup guide has the same steps, with sources.

@@ -10,7 +10,7 @@ while making cross-chat and cross-AI transfers honest about accessible context.
 
 Source version 2.0.0, which renamed the plugin and skill ID from chat-handoff
 to chat-handoff-for-chatgpt and moved the source into this folder. Earlier
-versions lived in RosBradley/chat-handoff-for-chatgpt, now archived.
+versions lived in RosBradley/chat-handoff-for-chatgpt, since deleted.
 
 One maintained skill: skills/chat-handoff-for-chatgpt. Both plugin manifests
 package it. The hosted CI and release workflows are in the repository's
